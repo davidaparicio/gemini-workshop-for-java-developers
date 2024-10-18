@@ -27,8 +27,8 @@ gcloud services enable aiplatform.googleapis.com
 Before running the examples, you'll need to set up two environment variables:
 
 ```bash
-export PROJECT_ID=YOUR_PROJECT_ID
-export LOCATION=us-central1
+export PROJECT_ID=$(gcloud config get-value project) #YOUR_PROJECT_ID
+export LOCATION=europe-west9 #us-central1
 ```
 
 > [!WARNING]

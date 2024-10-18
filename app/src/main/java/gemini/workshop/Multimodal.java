@@ -36,13 +36,14 @@ public class Multimodal {
             .modelName("gemini-1.5-flash-001")
             .build();
 
-        UserMessage userMessage = UserMessage.from(
+        /*UserMessage userMessage = UserMessage.from(
             ImageContent.from(CAT_IMAGE_URL),
             TextContent.from("Describe the picture")
-        );
+        );*/
 
-        Response<AiMessage> response = model.generate(userMessage);
-
-        System.out.println(response.content().text());
+        //Response<AiMessage> response = model.generate(userMessage);
+        //System.out.println(response.content().text());
+        String response = model.generate("Describe the image: https://upload.wikimedia.org/wikipedia/commons/b/b6/Felis_catus-cat_on_snow.jpg");
+        System.out.println(response);
     }
 }

@@ -15,6 +15,8 @@
  */
 package gemini.workshop;
 
+import static dev.langchain4j.model.vertexai.SchemaHelper.fromClass;
+
 import dev.langchain4j.model.chat.ChatLanguageModel;
 import dev.langchain4j.model.vertexai.VertexAiGeminiChatModel;
 import dev.langchain4j.service.AiServices;
@@ -25,12 +27,19 @@ public class ExtractData {
     record Person(String name, int age) {}
 
     interface PersonExtractor {
-        @UserMessage("""
+        /*@UserMessage("""
             Extract the name and age of the person described below.
             Return a JSON document with a "name" and an "age" property, \
             following this structure: {"name": "John Doe", "age": 34}
             Return only JSON, without any markdown markup surrounding it.
             Here is the document describing the person:
+            ---
+            {{it}}
+            ---
+            JSON: 
+            """)*/
+        @UserMessage("""
+            Extract the name and age of the person described below:
             ---
             {{it}}
             ---
@@ -46,7 +55,10 @@ public class ExtractData {
             .modelName("gemini-1.5-flash-001")
             .temperature(0f)
             .topK(1)
+            .responseMimeType("application/json") //0.32.0
+            .responseSchema(fromClass(Person.class)) //0.32.0
             .build();
+        //https://glaforge.dev/posts/2024/07/05/latest-gemini-features-support-in-langchain4j/
 
         PersonExtractor extractor = AiServices.create(PersonExtractor.class, model);
 

@@ -45,7 +45,7 @@ public class Conversation {
                 .build();
 
         List.of(
-            "Hello!",
+            //"Hello!",
             "What is the country where the Eiffel tower is situated?",
             "How many inhabitants are there in that country?"
         ).forEach( message -> {
